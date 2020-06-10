@@ -8,14 +8,15 @@ def load_words():
         word_list = ["learning", "kindness", "joy", "kiet", "good"] (old)
         word_list = ["learning", "kindness", "joy", "kiet", "good" ,"hello"] (new)
     """
-    word_list = ["learning", "kindness", "joy", "kiet", "good"]
+    #word_list = ["learning", "kindness", "joy", "kiet", "good"]
 
     # uncomment the below for testing
     
-    # WORDLIST_FILENAME = "words.txt"
-    # inFile = open(WORDLIST_FILENAME, 'r', 0)
-    # line = inFile.readline()
-    # word_list = string.split(line)
+   
+    inFile = open("words.txt", 'r')
+    line = inFile.readline()
+    
+    word_list = str.split(line)
 
     return word_list
 
