@@ -1,6 +1,7 @@
-import string
+import string,random
 from words import choose_word
 from images import IMAGES
+ 
 '''
 Important instruction
 * function and variable name snake_case -> is_prime
@@ -21,7 +22,15 @@ def is_word_guessed(secret_word, letters_guessed):
     else:
         return False
 
-    
+def hint(word,guess):
+    l=list(word)
+    for i in guess:
+        if i in l:
+            for j in range(l.count(i)):
+                l.remove(i)
+    return random.choice(l)                  
+     
+
 
 # if you want to test this function please call function -> get_guessed_word("kindness", [k, n, d])
 def if_valid(a):
@@ -66,6 +75,7 @@ def get_available_letters(letters_guessed):
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     alphabet2 = alphabet[:]
 
+
     def removeDupsBetter(L1, L2):
         L1Start = L1[:]
         for e in L1:
@@ -96,9 +106,9 @@ def hangman(secret_word):
     print("Welcome to the game, Hangman!")
     print("I am thinking of a word that is {} letters long.".format(
         str(len(secret_word))), end='\n\n')
-
+    print("press hint for hint")
     letters_guessed = []
-     
+    hint_used=False
     count =0
     while(remaining_lives>0 and wordGuessed is False):
         if secret_word == get_guessed_word(secret_word, letters_guessed):
@@ -107,7 +117,16 @@ def hangman(secret_word):
         available_letters = get_available_letters(letters_guessed)
         print("Available letters: {} ".format(available_letters))
         guess = input("Please guess a letter: ")
-        if(if_valid(guess)==True and guess in available_letters):
+        if(guess=="hint"):
+            if hint_used is False:
+                op=hint(secret_word,letters_guessed)
+                print("hint= " + op)
+                hint_used=True
+                
+            else:
+                print("hint already used ")    
+
+        elif(if_valid(guess)==True and guess in available_letters):
             letter = guess.lower()
             
             remaining_lives-=1
